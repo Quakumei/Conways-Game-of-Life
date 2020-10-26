@@ -151,10 +151,17 @@ def main():
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
-                # print(pygame.key.get_pressed())
                 key_char = event.key  # 32 is space sorry for this is awful to read
+                # print(key_char)
                 if key_char == 32:
                     pause = False if pause else True
+                elif key_char == 106:  # this is J, speed up the game
+                    turn_latency -= 0.1
+                    if turn_latency < 0:
+                        turn_latency = 0
+                elif key_char == 107:  # and this is K, slow down the game
+                    turn_latency += 0.1
+
             # only do something if the event is of type QUIT
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
@@ -172,7 +179,7 @@ def main():
 
         draw_map(game_state["map"], screen, tile_size, tile_size, tile_size, dead_tile_pic, alive_tile_pic)
         if pause is not True:
-            pygame.time.wait(turn_latency*1000)
+            pygame.time.wait(floor(turn_latency * 1000))
             game_state["map"] = do_turn(game_state["map"])
             turn += 1
 
