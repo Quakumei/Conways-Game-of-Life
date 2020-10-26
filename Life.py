@@ -145,21 +145,33 @@ def main():
 
     # Main cycle further...
     running = True
+    pause = True
+    first_render_flag = True
     while running:
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                # print(pygame.key.get_pressed())
+                key_char = event.key  # 32 is space sorry for this is awful to read
+                if key_char == 32:
+                    pause = False if pause else True
             # only do something if the event is of type QUIT
             if event.type == pygame.QUIT:
                 # change the value to False, to exit the main loop
                 running = False
 
         # TODO: Game state-changer - Done!
+
         draw_map(game_state["map"], screen, tile_size, tile_size, tile_size, dead_tile_pic, alive_tile_pic)
-        game_state["map"] = do_turn(game_state["map"])
-        turn += 1
+        if pause is not True:
+            time.sleep(turn_latency)
+            game_state["map"] = do_turn(game_state["map"])
+            turn += 1
 
         pygame.display.flip()
-        time.sleep(turn_latency)
+
+
+
 
 
 if __name__ == "__main__":
