@@ -10,3 +10,8 @@ is that you can use your own sprites. Just check the Life folder: Sprites from 1
 **Click** on cell to change its state of being,
 Press **J** to speed up the game and **K** to do the opposite.
 Press **Space** to pause or continue the game.
+
+# Requirements
+
+- python-tk / python3-tk
+- pygame
