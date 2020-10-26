@@ -1,5 +1,10 @@
 import pygame
 from math import floor
+# apt-get install python-tk //if u have troubles with Tkinter
+
+# for first input of width and height
+import tkinter as tk
+from tkinter import simpledialog
 
 
 def count_neighbors(x, y, game_map):
@@ -61,7 +66,7 @@ def log_map(game_map):
         print(y_line)
 
 
-def main():
+def main(map_width=10, map_height=10):
     pygame.init()
     pygame.display.set_caption("Implementation of Conway's Game of Life.")
     logo = pygame.image.load("Life/10.png")
@@ -74,8 +79,8 @@ def main():
         integers - states of the cell.
         0 - dead. 1 - alive.
     """
-    map_width = 10
-    map_height = 10
+    # map_width = 10
+    # map_height = 10
     turn_latency = 1
 
     empty_map = [[0 for _ in range(map_width)] for _ in range(map_height)]
@@ -187,4 +192,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    root = tk.Tk()
+    root.withdraw()
+    answer = simpledialog.askstring("Conway's game of life",
+                                         "Please, enter width and height of the grid in the following format width;height, e.g. 20;30:")
+    answer = [int(a) for a in answer.split(";")]
+    width = answer[0]
+    height = answer[1]
+    main(width, height)
