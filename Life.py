@@ -194,8 +194,9 @@ def main(map_width=10, map_height=10):
 if __name__ == "__main__":
     root = tk.Tk()
     root.withdraw()
-    answer = simpledialog.askstring("Conway's game of life",
-                                         "Please, enter width and height of the grid in the following format width;height, e.g. 20;30:")
+    answer = simpledialog.askstring("Conway's game of life by Tampio I.S. aka Quakumei",
+                                    "Please, enter sizes of the game field in\n \
+                                    the following format: width;height (e.g. \"20;30\"):")
     answer = [int(a) for a in answer.split(";")]
     width = answer[0]
     height = answer[1]
