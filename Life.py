@@ -1,5 +1,5 @@
 import pygame
-import time
+from math import floor
 
 
 def count_neighbors(x, y, game_map):
@@ -82,9 +82,9 @@ def main():
 
     #
     # Map Configuration
-    #
-    for y in range(2, 7):
-        empty_map[y][5] = 1
+    # (obsolete)
+    # for y in range(2, 7):
+    #     empty_map[y][5] = 1
 
     # # Turn counter
     """
@@ -160,18 +160,23 @@ def main():
                 # change the value to False, to exit the main loop
                 running = False
 
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # Kill or liven the cell on-click.
+                pos = pygame.mouse.get_pos()
+                rel_x, rel_y = pos[0] - tile_size, pos[1] - tile_size
+                rel_x, rel_y = floor(rel_x / 16), floor(rel_y / 16)
+                game_state["map"][rel_y][rel_x] = 1 if game_state["map"][rel_y][rel_x] == 0 else 0
+                draw_map(game_state["map"], screen, tile_size, tile_size, tile_size, dead_tile_pic, alive_tile_pic)
+
         # TODO: Game state-changer - Done!
 
         draw_map(game_state["map"], screen, tile_size, tile_size, tile_size, dead_tile_pic, alive_tile_pic)
         if pause is not True:
-            time.sleep(turn_latency)
+            pygame.time.wait(turn_latency*1000)
             game_state["map"] = do_turn(game_state["map"])
             turn += 1
 
         pygame.display.flip()
-
-
-
 
 
 if __name__ == "__main__":
